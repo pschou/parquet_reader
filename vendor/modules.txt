@@ -1,0 +1,98 @@
+# github.com/JohnCGriffin/overflow v0.0.0-20211019200055-46fa312c352c
+github.com/JohnCGriffin/overflow
+# github.com/andybalholm/brotli v1.0.4
+github.com/andybalholm/brotli
+# github.com/apache/arrow/go/v9 v9.0.0-20220622150026-50f6fcad6cc0
+## explicit
+github.com/apache/arrow/go/v9/arrow
+github.com/apache/arrow/go/v9/arrow/array
+github.com/apache/arrow/go/v9/arrow/bitutil
+github.com/apache/arrow/go/v9/arrow/decimal128
+github.com/apache/arrow/go/v9/arrow/endian
+github.com/apache/arrow/go/v9/arrow/float16
+github.com/apache/arrow/go/v9/arrow/internal/debug
+github.com/apache/arrow/go/v9/arrow/memory
+github.com/apache/arrow/go/v9/arrow/memory/internal/cgoalloc
+github.com/apache/arrow/go/v9/internal/bitutils
+github.com/apache/arrow/go/v9/internal/hashing
+github.com/apache/arrow/go/v9/internal/utils
+github.com/apache/arrow/go/v9/parquet
+github.com/apache/arrow/go/v9/parquet/compress
+github.com/apache/arrow/go/v9/parquet/file
+github.com/apache/arrow/go/v9/parquet/internal/bmi
+github.com/apache/arrow/go/v9/parquet/internal/debug
+github.com/apache/arrow/go/v9/parquet/internal/encoding
+github.com/apache/arrow/go/v9/parquet/internal/encryption
+github.com/apache/arrow/go/v9/parquet/internal/gen-go/parquet
+github.com/apache/arrow/go/v9/parquet/internal/thrift
+github.com/apache/arrow/go/v9/parquet/internal/utils
+github.com/apache/arrow/go/v9/parquet/metadata
+github.com/apache/arrow/go/v9/parquet/schema
+# github.com/apache/thrift v0.15.0
+github.com/apache/thrift/lib/go/thrift
+# github.com/docopt/docopt-go v0.0.0-20180111231733-ee0de3bc6815
+## explicit
+github.com/docopt/docopt-go
+# github.com/goccy/go-json v0.9.6
+github.com/goccy/go-json
+github.com/goccy/go-json/internal/decoder
+github.com/goccy/go-json/internal/encoder
+github.com/goccy/go-json/internal/encoder/vm
+github.com/goccy/go-json/internal/encoder/vm_color
+github.com/goccy/go-json/internal/encoder/vm_color_indent
+github.com/goccy/go-json/internal/encoder/vm_indent
+github.com/goccy/go-json/internal/errors
+github.com/goccy/go-json/internal/runtime
+# github.com/golang/snappy v0.0.4
+github.com/golang/snappy
+# github.com/klauspost/asmfmt v1.3.1
+github.com/klauspost/asmfmt
+github.com/klauspost/asmfmt/cmd/asmfmt
+# github.com/klauspost/compress v1.14.2
+github.com/klauspost/compress
+github.com/klauspost/compress/flate
+github.com/klauspost/compress/fse
+github.com/klauspost/compress/gzip
+github.com/klauspost/compress/huff0
+github.com/klauspost/compress/internal/snapref
+github.com/klauspost/compress/zstd
+github.com/klauspost/compress/zstd/internal/xxhash
+# github.com/klauspost/cpuid/v2 v2.0.9
+github.com/klauspost/cpuid/v2
+# github.com/minio/asm2plan9s v0.0.0-20200509001527-cdd76441f9d8
+github.com/minio/asm2plan9s
+# github.com/minio/c2goasm v0.0.0-20190812172519-36a3d3bbc4f3
+github.com/minio/c2goasm
+# github.com/zeebo/xxh3 v1.0.1
+github.com/zeebo/xxh3
+# golang.org/x/exp v0.0.0-20211216164055-b2b84827b756
+golang.org/x/exp/mmap
+# golang.org/x/mod v0.6.0-dev.0.20220106191415-9b9b3d81d5e3
+golang.org/x/mod/internal/lazyregexp
+golang.org/x/mod/module
+golang.org/x/mod/semver
+# golang.org/x/sys v0.0.0-20220412211240-33da011f77ad
+golang.org/x/sys/cpu
+golang.org/x/sys/execabs
+# golang.org/x/tools v0.1.10
+golang.org/x/tools/cmd/goimports
+golang.org/x/tools/cmd/stringer
+golang.org/x/tools/go/ast/astutil
+golang.org/x/tools/go/gcexportdata
+golang.org/x/tools/go/internal/gcimporter
+golang.org/x/tools/go/internal/packagesdriver
+golang.org/x/tools/go/packages
+golang.org/x/tools/internal/event
+golang.org/x/tools/internal/event/core
+golang.org/x/tools/internal/event/keys
+golang.org/x/tools/internal/event/label
+golang.org/x/tools/internal/fastwalk
+golang.org/x/tools/internal/gocommand
+golang.org/x/tools/internal/gopathwalk
+golang.org/x/tools/internal/imports
+golang.org/x/tools/internal/packagesinternal
+golang.org/x/tools/internal/typeparams
+golang.org/x/tools/internal/typesinternal
+# golang.org/x/xerrors v0.0.0-20220411194840-2f41105eb62f
+golang.org/x/xerrors
+golang.org/x/xerrors/internal
