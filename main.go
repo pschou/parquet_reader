@@ -69,12 +69,17 @@ func main() {
 	dataOut = os.Stdout
 	if config.Output != "-" {
 		var err error
-		dataOut, err = os.Create(config.Output)
+		fileOut, err := os.Create(config.Output)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "error: --output %q cannot be created, %s\n", config.Output, err)
 			os.Exit(1)
 		}
-		dataOut = bufio.NewWriter(dataOut)
+		bufOut := bufio.NewWriter(fileOut)
+		defer func() {
+			bufOut.Flush()
+			fileOut.Close()
+		}()
+		dataOut = bufOut
 	}
 
 	if config.CSV && config.JSON {
@@ -356,8 +361,5 @@ func main() {
 			}
 			fmt.Fprintln(dataOut)
 		}
-	}
-	if w, ok := dataOut.(*bufio.Writer); ok {
-		w.Flush()
 	}
 }
