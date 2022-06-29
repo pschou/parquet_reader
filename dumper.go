@@ -113,6 +113,8 @@ func (dump *Dumper) hasNext() bool {
 
 const microSecondsPerDay = 24 * 3600e6
 
+var parseInt96AsTimestamp = false
+
 func (dump *Dumper) FormatValue(val interface{}, width int) string {
 	fmtstring := fmt.Sprintf("-%d", width)
 	switch val := val.(type) {
@@ -129,15 +131,18 @@ func (dump *Dumper) FormatValue(val interface{}, width int) string {
 	case float64:
 		return fmt.Sprintf("%"+fmtstring+"f", val)
 	case parquet.Int96:
-		usec := int64(binary.LittleEndian.Uint64(val[:8])/1000) +
-			(int64(binary.LittleEndian.Uint32(val[8:]))-2440588)*microSecondsPerDay
-		t := time.Unix(usec/1e6, (usec%1e6)*1e3).UTC()
-		return fmt.Sprintf("%"+fmtstring+"s", t)
-		//return fmt.Sprintf("%"+fmtstring+"s",
-		//	fmt.Sprintf("%d %d %d",
-		//		binary.LittleEndian.Uint32(val[:4]),
-		//		binary.LittleEndian.Uint32(val[4:]),
-		//		binary.LittleEndian.Uint32(val[8:])))
+		if parseInt96AsTimestamp {
+			usec := int64(binary.LittleEndian.Uint64(val[:8])/1000) +
+				(int64(binary.LittleEndian.Uint32(val[8:]))-2440588)*microSecondsPerDay
+			t := time.Unix(usec/1e6, (usec%1e6)*1e3).UTC()
+			return fmt.Sprintf("%"+fmtstring+"s", t)
+		} else {
+			return fmt.Sprintf("%"+fmtstring+"s",
+				fmt.Sprintf("%d %d %d",
+					binary.LittleEndian.Uint32(val[:4]),
+					binary.LittleEndian.Uint32(val[4:]),
+					binary.LittleEndian.Uint32(val[8:])))
+		}
 	case parquet.ByteArray:
 		if dump.reader.Descriptor().ConvertedType() == schema.ConvertedTypes.UTF8 {
 			return fmt.Sprintf("%"+fmtstring+"s", string(val))
