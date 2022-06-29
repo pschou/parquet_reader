@@ -221,9 +221,11 @@ func main() {
 				fields[idx] = rgr.Column(c).Descriptor().Name()
 			}
 
-			line := "{"
+			var line string
 			for {
-				if line != "{" {
+				if line == "" {
+					line = "{"
+				} else {
 					line = ",{"
 				}
 
