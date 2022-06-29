@@ -228,15 +228,17 @@ func main() {
 				}
 
 				data := false
+				first := true
 				for idx, s := range scanners {
-					if idx > 0 {
-						line += ","
-					}
 					if val, ok := s.Next(); ok {
+						data = true
 						if val == nil {
-							data = true
 							continue
 						}
+						if !first {
+							line += ","
+						}
+						first = false
 						switch val.(type) {
 						case bool, int32, int64, parquet.Int96, float32, float64:
 						default:
@@ -248,7 +250,6 @@ func main() {
 							os.Exit(1)
 						}
 						line += fmt.Sprintf("%q:%s", fields[idx], jsonVal)
-						data = true
 					}
 				}
 				if !data {
@@ -284,9 +285,9 @@ func main() {
 						if !data {
 							fmt.Fprint(dataOut, line)
 						}
+						data = true
 						if val == nil {
 							fmt.Fprint(dataOut, "")
-							data = true
 							continue
 						}
 						switch val.(type) {
@@ -295,7 +296,6 @@ func main() {
 						default:
 							fmt.Fprintf(dataOut, "%q", val)
 						}
-						data = true
 					} else {
 						if data {
 							fmt.Fprint(dataOut, ",")
