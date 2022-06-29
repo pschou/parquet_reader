@@ -31,7 +31,8 @@ import (
 	"github.com/docopt/docopt-go"
 )
 
-const usage = `Parquet Reader.
+var version = ""
+var usage = `Parquet Reader (version ` + version + `)
 Usage:
   parquet_reader -h | --help
   parquet_reader [--only-metadata] [--no-metadata] [--no-memory-map] [--json] [--csv] [--output=FILE]
@@ -70,6 +71,11 @@ func main() {
 			fmt.Fprintf(os.Stderr, "error: --output %q cannot be created, %s\n", config.Output, err)
 			os.Exit(1)
 		}
+	}
+
+	if config.CSV && config.JSON {
+		fmt.Fprintln(os.Stderr, "error: both --json and --csv outputs selected.")
+		os.Exit(1)
 	}
 
 	selectedColumns := []int{}
@@ -227,7 +233,9 @@ func main() {
 						line += ","
 					}
 					if val, ok := s.Next(); ok {
-						if _, ok := val.(parquet.ByteArray); ok {
+						switch val.(type) {
+						case bool, int32, int64, parquet.Int96, float32, float64:
+						default:
 							val = fmt.Sprintf("%s", val)
 						}
 						jsonVal, err := json.Marshal(val)
@@ -273,11 +281,10 @@ func main() {
 							fmt.Fprint(dataOut, line)
 						}
 						switch val.(type) {
-						case int64, float64:
+						case bool, int32, int64, parquet.Int96, float32, float64:
 							fmt.Fprintf(dataOut, "%v", val)
 						default:
 							fmt.Fprintf(dataOut, "%q", val)
-							//fmt.Printf("I don't know about type %T!\n", val)
 						}
 						data = true
 					} else {
