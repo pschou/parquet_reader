@@ -227,7 +227,7 @@ func main() {
 			fields := make([]string, len(selectedColumns))
 			for idx, c := range selectedColumns {
 				scanners[idx] = createDumper(rgr.Column(c))
-				fields[idx] = rgr.Column(c).Descriptor().Name()
+				fields[idx] = rgr.Column(c).Descriptor().Path()
 			}
 
 			var line string
@@ -280,7 +280,7 @@ func main() {
 					fmt.Fprint(dataOut, ",")
 				}
 				scanners[idx] = createDumper(rgr.Column(c))
-				fmt.Fprintf(dataOut, "%q", rgr.Column(c).Descriptor().Name())
+				fmt.Fprintf(dataOut, "%q", rgr.Column(c).Descriptor().Path())
 			}
 			fmt.Fprintln(dataOut)
 
