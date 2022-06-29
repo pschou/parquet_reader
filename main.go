@@ -233,11 +233,12 @@ func main() {
 						line += ","
 					}
 					if val, ok := s.Next(); ok {
-						switch val.(type) {
-						case bool, int32, int64, parquet.Int96, float32, float64:
-						case nil:
+						if val == nil {
 							data = true
 							continue
+						}
+						switch val.(type) {
+						case bool, int32, int64, parquet.Int96, float32, float64:
 						default:
 							val = fmt.Sprintf("%s", val)
 						}
