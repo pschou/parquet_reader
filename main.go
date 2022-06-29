@@ -256,7 +256,7 @@ func main() {
 						switch val.(type) {
 						case bool, int32, int64, parquet.Int96, float32, float64:
 						default:
-							val = fmt.Sprintf("%s", val)
+							val = s.FormatValue(val, 0)
 						}
 						jsonVal, err := json.Marshal(val)
 						if err != nil {
@@ -308,7 +308,7 @@ func main() {
 						case bool, int32, int64, parquet.Int96, float32, float64:
 							fmt.Fprintf(dataOut, "%v", val)
 						default:
-							fmt.Fprintf(dataOut, "%q", val)
+							fmt.Fprintf(dataOut, "%q", s.FormatValue(val, 0))
 						}
 					} else {
 						if data {
