@@ -17,8 +17,10 @@
 package main
 
 import (
+	"bufio"
 	"encoding/json"
 	"fmt"
+	"io"
 	"log"
 	"os"
 	"strconv"
@@ -63,7 +65,8 @@ func main() {
 	}
 	opts.Bind(&config)
 
-	dataOut := os.Stdout
+	var dataOut io.Writer
+	dataOut = os.Stdout
 	if config.Output != "-" {
 		var err error
 		dataOut, err = os.Create(config.Output)
@@ -71,6 +74,7 @@ func main() {
 			fmt.Fprintf(os.Stderr, "error: --output %q cannot be created, %s\n", config.Output, err)
 			os.Exit(1)
 		}
+		dataOut = bufio.NewWriter(dataOut)
 	}
 
 	if config.CSV && config.JSON {
@@ -352,5 +356,8 @@ func main() {
 			}
 			fmt.Fprintln(dataOut)
 		}
+	}
+	if w, ok := dataOut.(*bufio.Writer); ok {
+		w.Flush()
 	}
 }
