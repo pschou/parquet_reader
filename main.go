@@ -254,7 +254,7 @@ func main() {
 						}
 						first = false
 						switch val.(type) {
-						case bool, int32, int64, parquet.Int96, float32, float64:
+						case bool, int32, int64, float32, float64:
 						default:
 							val = s.FormatValue(val, 0)
 						}
