@@ -235,6 +235,9 @@ func main() {
 					if val, ok := s.Next(); ok {
 						switch val.(type) {
 						case bool, int32, int64, parquet.Int96, float32, float64:
+						case nil:
+							data = true
+							continue
 						default:
 							val = fmt.Sprintf("%s", val)
 						}
@@ -283,6 +286,8 @@ func main() {
 						switch val.(type) {
 						case bool, int32, int64, parquet.Int96, float32, float64:
 							fmt.Fprintf(dataOut, "%v", val)
+						case nil:
+							fmt.Fprint(dataOut, "")
 						default:
 							fmt.Fprintf(dataOut, "%q", val)
 						}
