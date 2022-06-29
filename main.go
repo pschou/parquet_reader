@@ -224,21 +224,24 @@ func main() {
 			var line string
 			for {
 				if line == "" {
-					line = "{"
+					line = "\n  {"
 				} else {
-					line = ",{"
+					line = ",\n  {"
 				}
 
 				data := false
 				first := true
 				for idx, s := range scanners {
 					if val, ok := s.Next(); ok {
+						if !data {
+							fmt.Fprint(dataOut, line)
+						}
 						data = true
 						if val == nil {
 							continue
 						}
 						if !first {
-							line += ","
+							fmt.Fprint(dataOut, ",")
 						}
 						first = false
 						switch val.(type) {
@@ -251,16 +254,16 @@ func main() {
 							fmt.Fprintf(os.Stderr, "error: marshalling json for %+v, %s\n", val, err)
 							os.Exit(1)
 						}
-						line += fmt.Sprintf("%q:%s", fields[idx], jsonVal)
+						fmt.Fprintf(dataOut, "\n    %q: %s", fields[idx], jsonVal)
 					}
 				}
 				if !data {
 					break
 				}
-				fmt.Fprint(dataOut, line, "}")
+				fmt.Fprint(dataOut, "\n  }")
 			}
 
-			fmt.Fprintln(dataOut, "]")
+			fmt.Fprintln(dataOut, "\n]")
 		case config.CSV:
 			scanners := make([]*Dumper, len(selectedColumns))
 			for idx, c := range selectedColumns {
@@ -312,6 +315,7 @@ func main() {
 				fmt.Fprintln(dataOut)
 				line = ""
 			}
+			fmt.Fprintln(dataOut)
 		default:
 			const colwidth = 18
 
@@ -346,7 +350,7 @@ func main() {
 				fmt.Fprintln(dataOut)
 				line = ""
 			}
+			fmt.Fprintln(dataOut)
 		}
-		fmt.Fprintln(dataOut)
 	}
 }
